@@ -7,6 +7,8 @@ the user is prompted to choose whether to display more quotes.
 import requests                                 #importing requests module
 from bs4 import BeautifulSoup                   #importing BeautifulSoup
 
+i = 0                                           #variable for indexing the quotes list generated after scraping
+
 r = requests.get('http://quotes.toscrape.com')          #get the website contents into a request object
 soup = BeautifulSoup(r.content, 'lxml')                 #Parse the r object using the lxml parser
 
@@ -19,5 +21,12 @@ def get_quote(i):
     for text,author in quote:
         print(text + " by " + author)
 
-get_quote(0)            #pass an integer to pick a quote, program not yet complete,
-                        # once complete the integer will be passed automaticaly
+get_quote(i)                        #call function to diplay first quote i.e. by indexing quotes array with 0
+
+while True:                         #infinite loop for user input and terminated by user
+    more = input("Get more quote? (Y/N)\n")
+    if more == 'Y' or more == 'y':
+        i+=1
+        get_quote(i)
+    else:
+        break
